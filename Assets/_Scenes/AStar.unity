@@ -221,17 +221,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6d3ae7daabe51d4dbf5f8a5b3618784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _width: 10
-  _height: 10
-  _fillRatio: 0.3
+  _width: 50
+  _height: 50
+  _fillRatio: 0.167
   _start: {x: 0, y: 0}
-  _end: {x: 0, y: 0}
+  _end: {x: 40, y: 16}
   _worldSpawn: {fileID: 1876757081}
   _cubePrefab: {fileID: 1095099390499826, guid: f6164e8006ad775438db67b2b60a5d71,
     type: 2}
+  _targetGo: {fileID: 1524617885005776, guid: ea6176155076e33478b33967c0e8bacb, type: 2}
   _cubeGrey: {fileID: 2100000, guid: 8e314e45ad0f3ed4c893a8f9538cb3e7, type: 2}
   _cubeRed: {fileID: 2100000, guid: e7f8bd61eff9e474b8924208380716ac, type: 2}
-  _cubeGreen: {fileID: 2100000, guid: 8e314e45ad0f3ed4c893a8f9538cb3e7, type: 2}
+  _cubeGreen: {fileID: 2100000, guid: 3ca740cf328e7584fada6423a1d1783b, type: 2}
   _cubeBlue: {fileID: 2100000, guid: b453d2094c59bab468d47526bb98c1a6, type: 2}
 --- !u!4 &1197267591
 Transform:
