@@ -12,6 +12,8 @@ public class AStarMono : MonoBehaviour
 	[SerializeField, Range(0, 1f), Tooltip("0, no obstacle, 1, obstacles in each cases")] private float _fillRatio = 0.3f;
 	[SerializeField] private Vector2 _start;
 	[SerializeField] private Vector2 _end;
+	[SerializeField, Tooltip("Can we move diagonaly")] private bool _canMoveDiago;
+	[SerializeField, Tooltip("Show the algorithm working live, this slows a lot")] private bool _liveShow = true;
 
 	[Header("Links")]
 	[SerializeField] private Transform _worldSpawn;
@@ -30,6 +32,7 @@ public class AStarMono : MonoBehaviour
 	private Vector3 _cubeDimensions;
 	private Vector3 _centerTranslation;
 	private Dictionary<string, Vector2> _hashVectorCorrespondance = new Dictionary<string, Vector2>();
+	private List<Vector2> _currentPath;
 
 	private void Start()
 	{
@@ -181,6 +184,7 @@ public class AStarMono : MonoBehaviour
 			}
 
 			ColorCubes(closedSet, openSet, cameFrom, current);
+			if (!_liveShow) continue;
 			yield return new WaitForEndOfFrame();
 		}
 
@@ -188,6 +192,8 @@ public class AStarMono : MonoBehaviour
 		{
 			Debug.Log("Nothing found");
 		}
+
+		yield return null;
 	}
 
 
@@ -253,16 +259,53 @@ public class AStarMono : MonoBehaviour
 	{
 		pNeighbors.Clear();
 
+		bool left = false, right = false, up = false, down = false;
+
 		Vector2 tmp;
 
+		// Check left
 		tmp = pCurrent - Vector2.right;
-		if (Mathf.RoundToInt(tmp.x) >= 0 && _map[Mathf.RoundToInt(tmp.y), Mathf.RoundToInt(tmp.x)] == 0) pNeighbors.Add(tmp);
+		if (Mathf.RoundToInt(tmp.x) >= 0 && _map[Mathf.RoundToInt(tmp.y), Mathf.RoundToInt(tmp.x)] == 0)
+		{
+			left = true;
+			pNeighbors.Add(tmp);
+		}
+		// Check right
 		tmp = pCurrent + Vector2.right;
-		if (Mathf.RoundToInt(tmp.x) < _width && _map[Mathf.RoundToInt(tmp.y), Mathf.RoundToInt(tmp.x)] == 0) pNeighbors.Add(tmp);
+		if (Mathf.RoundToInt(tmp.x) < _width && _map[Mathf.RoundToInt(tmp.y), Mathf.RoundToInt(tmp.x)] == 0)
+		{
+			right = true;
+			pNeighbors.Add(tmp);
+		}
+		// Check up
 		tmp = pCurrent - Vector2.up;
-		if (Mathf.RoundToInt(tmp.y) >= 0 && _map[Mathf.RoundToInt(tmp.y), Mathf.RoundToInt(tmp.x)] == 0) pNeighbors.Add(tmp);
+		if (Mathf.RoundToInt(tmp.y) >= 0 && _map[Mathf.RoundToInt(tmp.y), Mathf.RoundToInt(tmp.x)] == 0)
+		{
+			up = true;
+			pNeighbors.Add(tmp);
+		}
+		// Check down
 		tmp = pCurrent + Vector2.up;
-		if (Mathf.RoundToInt(tmp.y) < _height && _map[Mathf.RoundToInt(tmp.y), Mathf.RoundToInt(tmp.x)] == 0) pNeighbors.Add(tmp);
+		if (Mathf.RoundToInt(tmp.y) < _height && _map[Mathf.RoundToInt(tmp.y), Mathf.RoundToInt(tmp.x)] == 0)
+		{
+			down = true;
+			pNeighbors.Add(tmp);
+		}
+
+		if (!_canMoveDiago) return;
+
+		// Check left up
+		tmp = pCurrent - Vector2.right - Vector2.up;
+		if (left && up && Mathf.RoundToInt(tmp.x) >= 0 && Mathf.RoundToInt(tmp.y) >= 0 && _map[Mathf.RoundToInt(tmp.y), Mathf.RoundToInt(tmp.x)] == 0) pNeighbors.Add(tmp);
+		// Check right up
+		tmp = pCurrent + Vector2.right - Vector2.up;
+		if (right && up && Mathf.RoundToInt(tmp.x) < _width && Mathf.RoundToInt(tmp.y) >= 0 && _map[Mathf.RoundToInt(tmp.y), Mathf.RoundToInt(tmp.x)] == 0) pNeighbors.Add(tmp);
+		// Check left down
+		tmp = pCurrent - Vector2.right + Vector2.up;
+		if (left && down && Mathf.RoundToInt(tmp.x) >= 0 && Mathf.RoundToInt(tmp.y) < _height && _map[Mathf.RoundToInt(tmp.y), Mathf.RoundToInt(tmp.x)] == 0) pNeighbors.Add(tmp);
+		// Check right down
+		tmp = pCurrent + Vector2.right + Vector2.up;
+		if (right && down && Mathf.RoundToInt(tmp.x) < _width && Mathf.RoundToInt(tmp.y) < _height && _map[Mathf.RoundToInt(tmp.y), Mathf.RoundToInt(tmp.x)] == 0) pNeighbors.Add(tmp);
 	}
 
 	/// <summary>
@@ -322,8 +365,8 @@ public class AStarMono : MonoBehaviour
 			 _mapCubes[Mathf.RoundToInt(v2.y), Mathf.RoundToInt(v2.x)].GetComponent<MeshRenderer>().material = _cubeRed;
 		}
 
-		List<Vector2> currentPath = GetPath(pCameFrom, pCurrent);
-		foreach (Vector2 v2 in currentPath)
+		_currentPath = GetPath(pCameFrom, pCurrent);
+		foreach (Vector2 v2 in _currentPath)
 		{
 			_mapCubesMaterials[Mathf.RoundToInt(v2.y), Mathf.RoundToInt(v2.x)] = _cubeGreen;
 

@@ -18,6 +18,24 @@ public class CameraEffects : MonoBehaviour
 	private Camera _cam;
 	private bool _orhto;
 
+
+	#region Singleton
+	private static CameraEffects _instance;
+	public static CameraEffects Instance { get { return _instance; } }
+
+	private void Awake()
+	{
+		if (_instance == null)
+		{
+			_instance = this;
+		}
+		else if (_instance != this)
+		{
+			Destroy(this.gameObject);
+		}
+	}
+	#endregion
+
 	private void Start()
 	{
 		_cam = this.GetComponent<Camera>();
@@ -99,6 +117,8 @@ public class CameraEffects : MonoBehaviour
 		}
 	}
 
+	#region V3 Smooth
+
 	private static Vector3 SmoothStepV3(Vector3 pStart, Vector3 pEnd, float pSmoothTime)
 	{
 		Vector3 ret = new Vector3();
@@ -137,4 +157,6 @@ public class CameraEffects : MonoBehaviour
 
 		return ret;
 	}
+	#endregion
+
 }

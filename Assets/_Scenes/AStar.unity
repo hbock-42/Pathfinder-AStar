@@ -167,7 +167,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 25
+  orthographic size: 27
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -211,7 +211,7 @@ MonoBehaviour:
   _orthoRotation: {x: 90, y: 0, z: 0}
   _perspPosition: {x: -9.1, y: 25.1, z: -21.6}
   _perpRotation: {x: 57.1, y: 11.2, z: 0}
-  _smoothTimeOrthoToPers: 0.53
+  _smoothTimeOrthoToPers: 3
   _smoothTimePersToOrtho: 2
   _blender: {fileID: 187096758}
 --- !u!114 &187096758
@@ -258,9 +258,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _width: 50
   _height: 50
-  _fillRatio: 0.167
+  _fillRatio: 0.197
   _start: {x: 0, y: 49}
-  _end: {x: 40, y: 16}
+  _end: {x: 40, y: 23}
+  _canMoveDiago: 1
+  _liveShow: 1
   _worldSpawn: {fileID: 1876757081}
   _cubePrefab: {fileID: 1095099390499826, guid: f6164e8006ad775438db67b2b60a5d71,
     type: 2}
