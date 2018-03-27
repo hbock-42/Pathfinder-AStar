@@ -207,6 +207,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d7fe2d7d7390dd46b91304602fec884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _orthoPosition: {x: 0, y: 10, z: 0}
+  _orthoRotation: {x: 90, y: 0, z: 0}
+  _perspPosition: {x: -9.1, y: 25.1, z: -21.6}
+  _perpRotation: {x: 57.1, y: 11.2, z: 0}
+  _smoothTimeOrthoToPers: 0.53
+  _smoothTimePersToOrtho: 2
   _blender: {fileID: 187096758}
 --- !u!114 &187096758
 MonoBehaviour:
@@ -219,8 +225,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe90ed00c75da8648b3309163fcfda1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _smoothTimeOrthoToPers: 3
-  _smoothTimePersToOrtho: 0.4
   _fov: 60
   _size: 25
   _near: 0.3
