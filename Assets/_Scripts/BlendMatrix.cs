@@ -28,6 +28,7 @@ public class BlendMatrix : MonoBehaviour
 	private void Start()
 	{
 		_cam = this.GetComponent<Camera>();
+
 		_aspect = _cam.aspect;
 		_ortho = _cam.orthographic;
 		_matrixOrtho = Matrix4x4.Ortho(-_size * _aspect, _size * _aspect, -_size, _size, _near, _far);

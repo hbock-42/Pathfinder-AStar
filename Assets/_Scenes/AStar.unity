@@ -226,7 +226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fov: 60
-  _size: 25
+  _size: 27
   _near: 0.3
   _far: 1000
 --- !u!1 &1197267589
