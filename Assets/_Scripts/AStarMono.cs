@@ -302,6 +302,9 @@ public class AStarMono : MonoBehaviour
 
 	#region Display
 
+	/// <summary>
+	/// Color the cube to show the state they are currently in
+	/// </summary>
 	private void ColorCubes(List<Vector2> pClosedSet, List<Vector2> pOpenSet, Dictionary<string, string> pCameFrom, Vector2 pCurrent)
 	{
 		foreach (Vector2 v2 in pClosedSet)
