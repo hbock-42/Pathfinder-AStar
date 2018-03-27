@@ -1,3 +1,5 @@
+![Screen](Assets/ScreenShots/AStarScreenshot.jpg?raw=true "AStar")
+
 # Pathfinder-AStar
 
 Demo of a simple implementation of the A* pathfinder algorithm
