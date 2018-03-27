@@ -260,7 +260,7 @@ MonoBehaviour:
   _height: 50
   _fillRatio: 0.197
   _start: {x: 0, y: 49}
-  _end: {x: 40, y: 23}
+  _end: {x: 49, y: 0}
   _canMoveDiago: 1
   _liveShow: 1
   _worldSpawn: {fileID: 1876757081}
