@@ -31,30 +31,24 @@ public class BlendMatrix : MonoBehaviour
 		_matrixPersp = Matrix4x4.Perspective(_fov, _cam.aspect, _near, _far);
 	}
 
-
-	private Matrix4x4 SmoothDampMatrix(Matrix4x4 pSrc, Matrix4x4 pDst, ref float[] pVelocity, float pSmoothTime)
+	private Matrix4x4 SmoothStepMatrix(Matrix4x4 pSrc, Matrix4x4 pDst, float pSmoothTime)
 	{
-		_maxDelta = float.NegativeInfinity;
-		float _dist;
 		Matrix4x4 ret = new Matrix4x4();
 		for (int i = 0; i < 16; i++)
 		{
-			ret[i] = Mathf.SmoothDamp(pSrc[i], pDst[i], ref pVelocity[i], pSmoothTime);
-			_dist = Mathf.Abs(ret[i] - pDst[i]);
-			if (_dist > _maxDelta) _maxDelta = _dist;
+			ret[i] = Mathf.SmoothStep(pSrc[i], pDst[i], pSmoothTime);
 		}
 
 		return ret;
 	}
 
+
 	private IEnumerator SmoothFromTo(Matrix4x4 pSrc, Matrix4x4 pDst, float pSmoothTime)
 	{
-		float[] _velocitys = new float[16];
-		while (_maxDelta > _minDeltaToStop)
+		for (float t = 0; t <= pSmoothTime; t += Time.deltaTime)
 		{
-			_cam.projectionMatrix = SmoothDampMatrix(_cam.projectionMatrix, pDst, ref _velocitys, pSmoothTime);
-			Debug.Log("min:" + _maxDelta);
-			yield return new WaitForEndOfFrame();;
+			_cam.projectionMatrix = SmoothStepMatrix(_cam.projectionMatrix, pDst, t / pSmoothTime);
+			yield return new WaitForEndOfFrame(); ;
 		}
 
 		_cam.projectionMatrix = pDst;
