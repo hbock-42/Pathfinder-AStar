@@ -2,13 +2,13 @@
 
 # Pathfinder-AStar
 
-Demo of a simple implementation of the A* pathfinder algorithm
+Demo of a simple implementation of the A* pathfinding algorithm
 
 You need to download unity3D to build or play this project
 
 Controls:
 
--Nothing usefull, but I wanted to try to interpolate between 2 diffrent camera perspective, with diffrent interpolation algorithm
+-Nothing usefull, but I wanted to try to interpolate between 2 diffrents camera perspectives, with diffrent interpolation algorithms
 
 - Q: linear interpolation
 - W: SmoothStep
